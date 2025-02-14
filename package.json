@@ -2,7 +2,7 @@
   "name": "android-like-website",
   "version": "1.0.0",
   "description": "Eine Webseite, die wie ein Android-Gerät aussieht",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
