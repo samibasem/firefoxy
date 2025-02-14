@@ -1,0 +1,18 @@
+{
+  "name": "android-like-website",
+  "version": "1.0.0",
+  "description": "Eine Webseite, die wie ein Android-Gerät aussieht",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "dependencies": {
+    "fehlende-abhaengigkeit": "^1.0.0" // Beispiel für eine fehlende Abhängigkeit
+  },
+  "devDependencies": {
+    "parcel": "^2.0.0"
+  },
+  "author": "Ihr Name",
+  "license": "MIT"
+}
