@@ -8,7 +8,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
-    "fehlende-abhaengigkeit": "^1.0.0" // Beispiel für eine fehlende Abhängigkeit
+    "fehlende-abhaengigkeit": "^1.0.0"
   },
   "devDependencies": {
     "parcel": "^2.0.0"
