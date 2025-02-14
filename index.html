@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android-Geräte-ähnliche Webseite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 360px;
+            height: 640px;
+            border: 2px solid #000;
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+        .content {
+            padding: 10px;
+            height: 100%;
+            overflow-y: scroll;
+        }
+        iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            margin-top: 1em;
+        }
+        .login {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        .login input {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .login button {
+            padding: 10px;
+            margin: 5px;
+            width: 80%;
+            border: none;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            if (password === 'bestthebest.de') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('mainScreen').style.display = 'block';
+            } else {
+                alert('Falsches Passwort!');
+            }
+        }
+        function loadWebsite() {
+            var url = document.getElementById('urlInput').value;
+            var iframe = document.getElementById('websiteFrame');
+            iframe.src = 'https://www.mozilla.org/en-US/firefox/new/?url=' + encodeURIComponent(url);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="loginScreen" class="login">
+            <h2>Login</h2>
+            <input type="password" id="passwordInput" placeholder="Passwort eingeben">
+            <button onclick="checkPassword()">Login</button>
+        </div>
+        <div id="mainScreen" style="display: none;">
+            <div class="header">
+                <h1>Android-Geräte-ähnliche Webseite</h1>
+            </div>
+            <div class="content">
+                <label for="urlInput">URL eingeben:</label>
+                <input type="text" id="urlInput" placeholder="https://example.com">
+                <button onclick="loadWebsite()">Website anzeigen</button>
+                <iframe id="websiteFrame"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
