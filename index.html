@@ -3,105 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Android-Geräte-ähnliche Webseite</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-        .container {
-            width: 360px;
-            height: 640px;
-            border: 2px solid #000;
-            border-radius: 16px;
-            overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        .header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-            padding: 10px;
-        }
-        .content {
-            padding: 10px;
-            height: 100%;
-            overflow-y: scroll;
-        }
-        iframe {
-            width: 100%;
-            height: 300px;
-            border: none;
-            margin-top: 1em;
-        }
-        .login {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-        }
-        .login input {
-            padding: 10px;
-            margin: 5px;
-            width: 80%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        .login button {
-            padding: 10px;
-            margin: 5px;
-            width: 80%;
-            border: none;
-            border-radius: 4px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
-    <script>
-        function checkPassword() {
-            const password = document.getElementById('passwordInput').value;
-            if (password === 'bestthebest.de') {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('mainScreen').style.display = 'block';
-            } else {
-                alert('Falsches Passwort!');
-            }
-        }
-        function loadWebsite() {
-            var url = document.getElementById('urlInput').value;
-            var iframe = document.getElementById('websiteFrame');
-            iframe.src = 'https://www.mozilla.org/en-US/firefox/new/?url=' + encodeURIComponent(url);
-        }
-    </script>
+    <title>Zugang zum Downloader</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
     <div class="container">
-        <div id="loginScreen" class="login">
-            <h2>Login</h2>
-            <input type="password" id="passwordInput" placeholder="Passwort eingeben">
-            <button onclick="checkPassword()">Login</button>
-        </div>
-        <div id="mainScreen" style="display: none;">
-            <div class="header">
-                <h1>Android-Geräte-ähnliche Webseite</h1>
-            </div>
-            <div class="content">
-                <label for="urlInput">URL eingeben:</label>
-                <input type="text" id="urlInput" placeholder="https://example.com">
-                <button onclick="loadWebsite()">Website anzeigen</button>
-                <iframe id="websiteFrame"></iframe>
-            </div>
-        </div>
+        <h1>Zugangsbereich</h1>
+        <p>Bitte geben Sie das Passwort ein, um fortzufahren.</p>
+        <form id="passwordForm">
+            <input type="password" id="passwordInput" placeholder="Passwort" required>
+            <button type="submit">Zugang</button>
+            <p id="errorMessage" class="error-message"></p>
+        </form>
     </div>
+
+    <script>
+        document.getElementById('passwordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const password = document.getElementById('passwordInput').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Passwort-Hash statt Klartext (SHA-256 von "225")
+            const hashedPassword = '8ce87b8ec346ff4c80635f667d1592ae9f0e9eaa7f4e7a1f58e936f0fb202e9b';
+            
+            // Hash des eingegebenen Passworts berechnen
+            async function hashPassword(pw) {
+                const msgBuffer = new TextEncoder().encode(pw);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+
+            hashPassword(password).then(hash => {
+                if (hash === hashedPassword) {
+                    window.location.href = 'downloader.html';
+                } else {
+                    errorMessage.textContent = 'Falsches Passwort. Bitte versuchen Sie es erneut.';
+                    document.getElementById('passwordInput').value = '';
+                    document.getElementById('passwordInput').focus();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
